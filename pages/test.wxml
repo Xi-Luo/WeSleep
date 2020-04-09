@@ -1,0 +1,6 @@
+<!--pages/test.wxml-->
+<text>pages/test.wxml</text>
+<view class="main">
+<image src='../images/home/home_day_down.jpg' class='down'/>
+<image src='../images/ranklist/ranklistBg.png' class='up' />
+</view>

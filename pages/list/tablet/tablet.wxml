@@ -1,0 +1,34 @@
+<view class="page">
+
+
+  <view class="loading_box" wx:if="{{loading}}">
+    <view class="loading3 loading3_1"></view>
+    <view class="loading3 loading3_2"></view>
+    <view class="loading3 loading3_3"></view>
+    <view class="loading3 loading3_4"></view>
+  </view>
+  <view class='top'>
+
+    <text>WeSleep</text>
+
+  </view>
+
+
+  <view class='questionTitle'>
+    是否使用药物助眠？
+  </view>
+
+
+  <view class='questionOption'>
+    <view class="{{choseA}}==true? 'choseA':'noChoseA'" bindtap='choseA' >无</view>
+    <view class="{{choseB}}==true? 'choseB':'noChoseB'" bindtap='choseB' >一周1~2次</view>
+    <view class="{{choseC}}==true? 'choseC':'noChoseC'" bindtap='choseC' >一周3~5次</view>
+    <view class="{{choseD}}==true? 'choseD':'noChoseD'" bindtap='choseD' >每天都要</view>
+
+
+  </view>
+
+</view>
+
+
+

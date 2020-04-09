@@ -1,0 +1,28 @@
+<view class="page" catchtap='goHome'>
+
+
+
+  <view class='top'>
+
+    <text>WeSleep</text>
+
+  </view>
+
+
+  <view class='welcome'>
+    <text>欢迎来到WeSleep\n</text>
+  </view>
+
+  <view class='welcome'>
+    <text>(•̀ᴗ•́)و ̑̑</text>
+  </view>
+  <view class='welcome'>
+    <text>你的睡眠管家</text>
+  </view>
+
+
+
+
+
+
+</view>

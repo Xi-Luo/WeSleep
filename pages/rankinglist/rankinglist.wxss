@@ -1,0 +1,39 @@
+.Rank {
+  margin:5px;
+  padding: 0 20px;
+  text-align: left;
+  background-color: #fff;
+  height: 2.8em;
+  line-height: 2.8em;
+  color: rgb(16, 163, 40);
+}
+
+.Name {
+  margin:5px;
+  padding: 0 10px;
+  text-align: left;
+  background-color: #fff;
+  height: 2.8em;
+  line-height: 2.8em;
+  color: #000;
+}
+
+.HairQuantity {
+  /* margin: 5px; */
+  padding: 0 10px;
+  text-align: right;
+  background-color: #fff;
+  height: 2.8em;
+  line-height: 2.8em;
+  font-weight:bolder;
+  font-size: 50rpx;
+  color: rgb(253, 184, 54);
+}
+
+.TextStyle {
+  font-size:70%;
+}
+
+.Image {
+  width: 100%;
+}

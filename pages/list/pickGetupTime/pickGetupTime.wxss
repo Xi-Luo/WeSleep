@@ -1,0 +1,36 @@
+/* pages/list/pickGetupTime/pickGetupTime.wxss */
+@import '../../../styles/question.wxss';
+.small {
+  color: #595757;
+  margin: 0rpx 20rpx 0rpx 20rpx;
+  font-size: 25rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.large {
+  color: #0e0d0d;
+  margin: 0rpx 20rpx 0rpx 20rpx;
+  font-size: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.next {
+  background-color: rgb(247, 215, 91);
+  color: #000;
+  text-align: center;
+  border: 1rpx #000 solid;
+  line-height: 68rpx;
+  font-size: 30rpx;
+  /* margin: 80rpx 0rpx 0rpx 0rpx; */
+  margin-top: 80rpx;
+  border-radius: 5rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250rpx;
+  
+}

@@ -1,0 +1,61 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/test",
+    
+    "pages/list/pickGetupTime/pickGetupTime",
+    "pages/list/pickerBirth/pickerBirth",
+    "pages/list/welcome/welcome",
+    "pages/list/pickerMajor/pickerMajor",
+    "pages/list/pickerSex/pickerSex",
+    "pages/list/tablet/tablet",
+    "pages/report/report",
+    "pages/account/account/account",
+    "pages/account/selfInformation/selfInformation",
+    "pages/account/setting/setting",
+    "pages/account/hairSelect/hairSelect",
+    "pages/account/skinSelect/skinSelect",
+    "pages/rankinglist/rankinglist",
+    "pages/index/index",
+    "pages/account/history/history",
+    "pages/logs/logs"
+    ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/report/report",
+        "iconPath": "images/tabBar/report1.png",
+        "selectedIconPath": "images/tabBar/report2.png",
+        "text": "周报"
+      },
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "images/tabBar/home1.png",
+        "selectedIconPath": "images/tabBar/home2.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/rankinglist/rankinglist",
+        "iconPath": "images/tabBar/icon_rankinglist.png",
+        "selectedIconPath": "images/tabBar/icon_rankinglist_HL.png",
+        "text": "排行榜"
+      },
+      {
+        "pagePath": "pages/account/account/account",
+        "iconPath": "images/tabBar/user1.png",
+        "selectedIconPath": "images/tabBar/user2.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "i-card": "dist/card1/index"
+  },
+  "sitemapLocation": "sitemap.json"
+}

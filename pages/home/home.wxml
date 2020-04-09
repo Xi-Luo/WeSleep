@@ -1,0 +1,47 @@
+<view class='allLayout'  bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+  <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showMorning}}"></view>
+
+  <view class="Dialog" wx:if="{{showMorning}}">
+    <view class='question'>昨晚睡得怎么样？</view>
+    <view class='choose'>
+      <button class='btn' bindtap='sleepWell'>好</button>
+      <button class='btn' bindtap='sleepSoso'>一般</button>
+      <button class='btn' bindtap='sleepBad'>差</button>
+    </view>
+  </view>
+
+  <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showEvening}}"></view>
+
+  <view class="Dialog" wx:if="{{showEvening}}">
+    <view class='question'>白天感到困倦吗</view>
+    <view class='choose'>
+      <button class='btn' bindtap='dayBad'>是的</button>
+      <button class='btn' bindtap='daySoso'>一般</button>
+      <button class='btn' bindtap='dayWell'>没有</button>
+    </view>
+
+  </view>
+
+
+  <view class="home">
+    <image src="/../images/home/home_day_down.jpg" class="home_image img-down"></image>
+    <image src="/../images/home/home_day_medium.jpg" class="home_image img-medium"></image>
+    <image src="/../images/home/home_day_up.jpg" class="home_image img-up " bindtap="onChangeShowState"></image>
+    <button class='morning-btn' bindtap='submitMorning'>早安</button>
+    <button class='evening-btn' bindtap='submitEvening'>晚安</button>
+
+
+
+    <view class="{{greetingView?'show':'hide'}}">
+      <view class='greeting'>{{greeting}}</view>
+    </view>
+
+
+
+  </view>
+
+  
+
+  
+
+</view>

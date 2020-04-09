@@ -1,0 +1,7 @@
+<!--pages/account/history/history0.wxml-->
+<view wx:for="{{reportItems}}" wx:key="id">
+  <i-card title="{{item.month}}" >
+    <view slot="content">{{item.date}}</view>
+  </i-card>
+  <view class="line"></view>
+</view>

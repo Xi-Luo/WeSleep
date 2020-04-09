@@ -1,0 +1,26 @@
+<!--rankinglsit.wxml-->
+<view class='ImageSize'>
+<image src='/../images/ranklist/ranklistBg.png' class='Image'></image>
+</view>
+<view class="page">
+  <view class="page__bd page__bd_spacing">
+    <view wx:for="{{list}}" wx:for-item="item" wx:for-index="idx">
+      <view class="weui-flex">
+        <view wx:if="{{idx>=0 && idx<9}}">
+          <view class="Rank"> {{item.quantity}}</view>
+        </view>
+        <view wx:if="{{idx>=9}}">
+          <view class="Rank" style="width:10px;">
+            <text class="TextStyle">{{item.quantity}}</text>
+          </view>
+        </view>
+        <view class="weui-flex__item">
+          <view class="Name">{{item.name}}</view>
+        </view>
+        <view>
+          <view class="HairQuantity">20%</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

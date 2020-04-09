@@ -1,0 +1,2 @@
+/* pages/tablet/tablet.wxss */
+@import '../../../styles/question.wxss';

@@ -1,0 +1,14 @@
+/* pages/test.wxss */
+.main{
+  position: relative;
+}
+.up {
+  height: 100rpx;
+  width: 150rpx;
+  position: absolute;
+  z-index: 1;
+}
+.down {
+  position: absolute;
+  z-index: -1;
+}
