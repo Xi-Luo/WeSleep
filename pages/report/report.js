@@ -2,32 +2,24 @@ import * as echarts from '../../ec-canvas/echarts';
 
 var imageUtil = require('../../utils/util.js');
 var Chart = null;
-var backdata = [80, 91, 81, 83, 90, 95, 70];
-
-//c测试数据
-var sleepDate = '2019/09/01 23:49:10'
-var wakeDate = '2019/09/02 06:30:10'
-var currenTime = ''
-var judgeTest = '你这周睡觉时间有点晚呐！'
-var damageTest = '要记得，不规律睡眠会造成一个人： \n变胖、变丑、记忆力下降、容易忘事、容易生病，还可能会比别人更容易得癌症。\n'
-var adviceTest = '\n睡前一杯牛奶有助于更快入睡 \n熬夜之后在中午午休30分钟能让下午更有精神呢!'
-var greetingChoice = ['早上好', '晚上好', '晚安']
-var myDate = new Date()
-var myHour = myDate.getHours()
-
-
-
 
 Page({
   data: {
+    rId:'',
+    startDate:'',
+    endDate:'',
+    showChart:true,
     wake: "00:00:00",
     asleep: "00:00:00",
     time: 0.00,
-    judge: "",
-    damage: "",
+    level:'',
+    dayScore:'',
+    nightScore:'',
+    timeScore:'',
+    hairUrl:'',
+    xList:[],
+    chartValue:[],
     advice: "",
-
-
 
     ec: {
       onInit: function (canvas, width, height) {
@@ -40,10 +32,7 @@ Page({
       },
       lazyLoad: true //延迟加载
     },
-
   },
-
-
 
   input: function () {
     console.log("input")
@@ -52,30 +41,69 @@ Page({
     console.log("transpond")
   },
 
-
-
   onLoad: function (options) {
-    //测试数据
-    var wakeDateChuo = Date.parse(wakeDate) / 1000
-    var sleepDateChuo = Date.parse(sleepDate) / 1000
-    var waking = imageUtil.formatTimeTwo(wakeDateChuo, 'h:m:s')
-    var sleeping = imageUtil.formatTimeTwo(sleepDateChuo, 'h:m:s')
-    var timeAverage = wakeDateChuo - sleepDateChuo
-    // var averageTime = timeAverage 
-    var averageTime = (timeAverage / 3600).toFixed(2)
-    //平均睡眠时间由毫秒变为小时
-
+    var reports = wx.getStorageSync('report')
+    var rId = getApp().data.reportId
+    if(rId==-1){
+      this.setData({rId:-1})
+    }
+    var temp =reports[rId].dayScore
+    if(temp<=1){this.setData({dayScore:'充足'})}
+    else if(temp<=2){this.setData({dayScore:'一般'})}
+    else if(temp<=3){this.setData({dayScore:'不足'})}
+    temp = reports[rId].nightScore
+    if (temp <= 1) { this.setData({ nightScore: '好' }) }
+    else if (temp <= 2) { this.setData({ nightScore: '一般' }) }
+    else if (temp <= 3) { this.setData({ nightScore: '差' }) }
+    temp=reports[rId].sleepDuration
+    if(temp>7){this.setData({timeScore:'充足'})}
+    else if(temp>6){this.setData({timeScore:'较充足'})}
+    else if(temp>5){this.setData({timeScore:'不足'})}
+    else {this.setData({timeScore:'十分不足'})}
+    temp=wx.getStorageSync('advice')
+    if(reports.length<2){
+      this.setData({showChart:false})
+    } else{
+      var xl = []; var chartV = []
+      if (reports.length > 7) {
+        var j = reports.length - 7;
+        for (var i = 0; i < 7; i++) {
+          if (i = 6) { xl[i] = '本周' }
+          else { xl[i] = ' ' }
+          if (reports[j].level == 'D') { chartV[i] = 1 }
+          if (reports[j].level == 'C') { chartV[i] = 2 }
+          if (reports[j].level == 'B') { chartV[i] = 3 }
+          if (reports[j].level == 'A') { chartV[i] = 4 }
+          j++;
+        }
+      } else {
+        for (var i = 0; i < reports.length; i++) {
+          console.log('ininininin', i, reports[i].level)
+          if (i == reports.length - 1) { xl[i] = '本周' }
+          else { xl[i] = i+1 }
+          console.log('afterelse',i)
+          if (reports[i].level == 'D') { chartV[i] = 1 }
+          if (reports[i].level == 'C') { chartV[i] = 2 }
+          if (reports[i].level == 'B') { chartV[i] = 3 }
+          if (reports[i].level == 'A') { chartV[i] = 4 }
+        }
+      }
+      this.setData({
+        xLable: xl,
+        chartValue: chartV
+      })
+    }
+    
     this.setData({
-
-      wake: waking,
-      asleep: sleeping,
-      time: averageTime,
-      judge: judgeTest,
-      damage: damageTest,
-      advice: adviceTest,
-
+      startDate:imageUtil.formatDate(reports[rId].startDate),
+      endDate:reports[rId].endDate,
+      wake: reports[rId].averGetUp,
+      asleep: reports[rId].averSleep,
+      time: reports[rId].sleepDuration,
+      level: reports[rId].level,
+      hairUrl:'/images/malehair/malehair0'+wx.getStorageSync('hairId')+wx.getStorageSync('hairLevel')+'.png',
+      advice:temp[reports[rId].advice]
     })
-
 
     this.echartsComponnet = this.selectComponent('#mychart');
     //如果是第一次绘制
@@ -84,14 +112,6 @@ Page({
     } else {
       this.setOption(Chart); //更新数据
     }
-
-
-  },
-
-  
-
-  imageLoad: function (e) {
-   
   },
 
   init_echart: function () {
@@ -116,7 +136,7 @@ Page({
     var self = this;
     var option = {
       title: { //标题
-        text: '一周发量',
+        text: '发量趋势',
         left: 'center'
       },
       renderAsImage: true, //支持渲染为图片模式
@@ -140,7 +160,7 @@ Page({
 
         },
         boundaryGap: false, //1.true 数据点在2个刻度直接
-        data: ['2222.2.55', '周一', '周二', '周三', '周四', '周五', '周六'],
+        data:this.data.xLable ,
         axisLabel: {
           textStyle: {
             fontSize: 13,
@@ -151,12 +171,12 @@ Page({
       yAxis: { //纵坐标
         type: 'value',
         position: 'left',
-        name: '发量 / %', //纵坐标名称
+        name: '发量 ', //纵坐标名称
         nameTextStyle: { //在name值存在下，设置name的样式
           //color: 'blue',
           fontStyle: 'normal'
         },
-        splitNumber: 10, //坐标轴的分割段数
+        // splitNumber: 4, //坐标轴的分割段数
         splitLine: { //坐标轴在 grid 区域中的分隔线。
           show: true,
           lineStyle: {
@@ -166,7 +186,12 @@ Page({
         axisLabel: { //坐标轴刻度标签
           formatter: function (value) {
             var xLable = [];
-            xLable = value;
+            if(value==1){
+              xLable.push('D');
+            }
+            if(value==2){xLable.push('C')}
+            if(value==3){xLable.push('B')}
+            if(value==4){xLable.push('A')}
 
             return xLable
           },
@@ -176,12 +201,12 @@ Page({
           }
         },
         min: 0,
-        max: 100,
+        max: 4,
       },
       series: [{
         name: '事业',
         type: 'line',
-        data: backdata, //获取数据
+        data:this.data.chartValue, //获取数据
         // data: ["50", "30", "40", "70", "90", "30", "20"],
         symbol: 'none',
         itemStyle: {

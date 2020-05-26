@@ -1,34 +1,42 @@
 <view class="portrait">
-  <image src="/../img/portrait.png" class="profile" animation="{{animPlus}}" bindtap="plus"></image>
+  <image src="/../images/report/portrait.png" class="profile" animation="{{animPlus}}" bindtap="plus"></image>
 </view>
-
-<view class="page-head-line"></view>
-<view class="message">
-  <view class="message_sleep">\n平均起床时间：{{wake}}</view>
-  <view class="message_sleep">\n平均入睡时间：{{asleep}}</view>
-  <view class="message_sleep">\n平均睡眠时长：{{time}}小时\n</view>
+<view wx:if="{{rId==-1}}">
+<view class="message_sleep ">\n还没有周报生成哦~</view>
 </view>
-
-
-<view class="splite-line-dotted"></view>
-<text>\n</text>
-
-<view class='echart_wrap'>
-  <ec-canvas id="mychart" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
-</view>
-<view class="splite-line-dotted"></view>
-<text>\n</text>
-
-
-<view class="card">
-  <view class="report_head">一周健康建议</view>
-  <view class="tipCard">
-    <text>{{judge}}\n{{damage}}</text>
+<view wx:if="{{rId!=-1}}">
+  <view class="page-head-line"></view>
+  <view class="message">
+    <view class="message_sleep">\n{{startDate}}~{{endDate}}</view>
+    <view class="message_sleep">\n平均起床时间：{{wake}}</view>
+    <view class="message_sleep">\n平均入睡时间：{{asleep}}</view>
+    <view class="message_sleep">\n平均睡眠时长：{{time}}小时\n</view>
   </view>
-  <view class="tipCard">
-    <text>因此，小故给你的建议是：{{advice}} </text>
+  <view class="splite-line-dotted"></view>
+  <text>\n</text>
+  <view class="card">
+    <view class="report_head">一周睡眠分析</view>
+    <view class="tipCard">
+      <view class="analysis_item">睡眠质量：{{nightScore}}</view>
+      <view class="analysis_item">日间状态：{{dayScore}}</view>
+      <view class="analysis_item">睡眠时长：{{timeScore}}</view>
+      <view class="analysis">本周发量评分为：</view>
+      <view class="level-{{level}}">{{level}}</view>
+      <view class="hairImage">
+        <image src="{{hairUrl}}" class="in-image"></image>
+      </view>
+    </view>
   </view>
-
-
-
+  <text>\n</text>
+  <view wx:if="{{showChart}}" class='echart_wrap'>
+    <ec-canvas id="mychart" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+  </view>
+  <view class="splite-line-dotted"></view>
+  <text>\n</text>
+  <view class="card">
+    <view class="report_head">一周健康建议</view>
+    <view class="tipCard">
+      <text>{{advice}} </text>
+    </view>
+  </view>
 </view>

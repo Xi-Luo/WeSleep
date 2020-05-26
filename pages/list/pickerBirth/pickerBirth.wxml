@@ -1,37 +1,15 @@
 <view class="page">
-
-
-
   <view class='top'>
-
     <text>WeSleep</text>
-
   </view>
-
-
   <view class='questionTitle'>
     你的出生日期是？
   </view>
   <view class='questionTitle'>
     {{birth}}
   </view>
-
-  <picker class="weui-btn" mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-    <view class='chose' >点击选择</view>
+  <picker class="weui-btn" mode="date" value="{{date}}" start="1990-01-01" end="2005-01-01" bindchange="bindDateChange">
+    <view class='chose'>点击选择</view>
   </picker>
   <button wx:if="{{birth!=''}}" class='chose' bindtap="nextStep">下一步</button>
-
-
 </view>
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,40 +1,10 @@
-// const formatTime = date => {
-//   const year = date.getFullYear()
-//   const month = date.getMonth() + 1
-//   const day = date.getDate()
-//   const hour = date.getHours()
-//   const minute = date.getMinutes()
-//   const second = date.getSeconds()
-
-//   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-// }
-
-// const formatNumber = n => {
-//   n = n.toString()
-//   return n[1] ? n : '0' + n
-// }
-
-// module.exports = {
-//   formatTime: formatTime
-// }
-/*const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}*/
-
-/*const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}*/
-
 module.exports = {
-  getViewWHInfo: getViewWHInfo
+  getViewWHInfo: getViewWHInfo,
+  formatTime: formatTime,  // 日期转时间戳
+  formatTimeTwo: formatTimeTwo, // 时间戳转日期
+  averageTime: averageTime,
+  totoalTime: totoalTime,
+  formatDate:formatDate
 }
 
 function getViewWHInfo(e) {
@@ -56,6 +26,13 @@ function getViewWHInfo(e) {
   return viewSize;
 }
 
+function formatDate(d){
+  var date = new Date(d)
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  return [year, month, day].map(formatNumber).join('.') 
+}
 
 function formatTime(date) {
   var year = date.getFullYear()
@@ -98,8 +75,32 @@ function formatTimeTwo(number, format) {
   }
   return format;
 }
-module.exports = {
-  formatTime: formatTime,  // 日期转时间戳
-  formatTimeTwo: formatTimeTwo  // 时间戳转日期
+
+function averageTime(arr){
+  var hour=0;
+  var minu=0;
+  for(var i =0;i<arr.length;i++){
+    var temp = new Date(arr[i])
+    hour=hour+temp.getHours();
+    console.log(temp.getHours(),temp.getMinutes())
+    minu=minu+temp.getMinutes();
+  }
+  var avertotal = (hour * 60 + minu) % (24 * 60)/arr.length;
+  var averh= parseInt(avertotal/60)
+  var averm = parseInt(avertotal-averh*60)
+  if(averm<10){
+    var str = averh + ':0' + averm
+  } else { var str = averh + ':' + averm}
+  
+  return str
 }
 
+function totoalTime(sleep,getup){
+  var s = new Date('2020/2/1 '+sleep+':00')
+  var g = new Date('2020/2/1 '+getup+':00')
+  var t = (g-s)/(1000*60*60)
+  console.log(s,g,t)
+  if(t<0) {t=t+24}
+  var time = parseFloat(t.toFixed(2))
+  return time
+}

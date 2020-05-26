@@ -1,7 +1,11 @@
-<!--pages/account/history/history0.wxml-->
-<view wx:for="{{reportItems}}" wx:key="id">
-  <i-card title="{{item.month}}" >
-    <view slot="content">{{item.date}}</view>
-  </i-card>
-  <view class="line"></view>
+<view wx:if="{{noRe}}" class="noRe">
+您还没有周报记录
+</view>
+
+<view wx:if="{{!noRe}}" wx:for="{{reports}}" wx:key="startDate">
+  <view class="card-{{item.level}} horizontal" bindtap="clickItem" wx:for-index="index" data-index="{{index}}">
+    <view class="text-{{item.level}}">{{item.level}}</view>
+    <view class="vertical_line"></view>
+    <view class="date-{{item.level}}">{{item.startDate}}~{{item.endDate}}</view>
+  </view>
 </view>

@@ -25,7 +25,7 @@
 }
 .img-up{
   position:absolute;
-  z-index: 10;
+  z-index: 1;
 }
 
 .portrait
@@ -219,15 +219,13 @@ page{
 }
 
 .btn{
-  width: 150rpx;
+  width: 200rpx;
 
   margin-top: 50rpx;
   background-color: rgb(248, 219, 100);
   border-color: black;
   border-style: outset;
   z-index: 9000;
-  
-  
 }
 
 .btn::after{
@@ -248,11 +246,12 @@ page{
 
 .morning-btn{
   width: 170rpx;
+  background-color: rgb(248, 219, 100);
   margin-left: 5%;
   margin-top: 970rpx;
   height: 100rpx;
   /* margin-top: 130%; */
-  background: transparent;
+  
   border-color: black;
   border-style: outset;
   z-index: 8000;
@@ -265,12 +264,13 @@ page{
 }
 
 .evening-btn{
+  background-color: rgb(248, 219, 100);
   width: 170rpx;
   margin-right: 5%;
   margin-top: 970rpx;
   height: 100rpx;
   /* margin-top: -13%; */
-  background: transparent;
+  
   border-color: black;
   border-style: outset;
   z-index: 8500;
@@ -282,5 +282,85 @@ page{
   border: none;
 }
 
+.malehair{
+  margin: 560rpx 0rpx 0rpx 150rpx;
+  width: 500rpx;
+  height: 500rpx;
+  position: absolute;
+  z-index: 2;
+  left: 0;
+}
 
+.eye{
+  margin: 720rpx 0rpx 0rpx 280rpx;
+  /* 上右下左 */
+  width: 250rpx;
+  height: 250rpx;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+}
 
+.glass{
+  margin: 700rpx 0rpx 0rpx 255rpx;
+  width: 290rpx;
+  height: 290rpx;
+  position: absolute;
+  z-index: 4;
+  left: 0;
+}
+.cloth{
+  margin: 770rpx 0rpx 0rpx 250rpx;
+  width: 300rpx;
+  height: 300rpx;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+}
+
+.mouth{
+  width: 120rpx;
+  height: 120rpx;
+  margin: 870rpx 0px 0px 340rpx;
+  position: absolute;
+  z-index: 5;
+  left: 0;
+}
+
+.Tips{
+  position: fixed;
+  z-index: 9998;
+  background-color: #FFFFFF;
+  width: 350rpx;
+  align-items: center;
+  justify-content: center;
+  margin-top: 45%;
+  margin-left: 30%;
+  display: flex;
+  border-radius: 30rpx;
+  border: 10rpx #000 solid;
+}
+.tipsContent{
+  font:bold;
+  margin: 15rpx;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.new {
+    background: rgb(248, 241, 219);
+    width: 500rpx;
+    height: 300rpx;
+    position: fixed;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform:translateX(-50%) translateY(-50%);
+    border-radius: 36rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 32rpx;
+    
+}

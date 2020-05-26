@@ -21,7 +21,6 @@ Page({
     choseMajor: "无";
     choseA: true;
     wx.setStorageSync('tablet', 0)
-    console.log(wx.getStorageSync('tablet'))
     wx.navigateTo({
       url: '../pickerBirth/pickerBirth',
     })
@@ -31,7 +30,6 @@ Page({
     choseMajor: "不超过一周1次";
     choseB: true;
     wx.setStorageSync('tablet', 1)
-    console.log(wx.getStorageSync('tablet'))
     wx.navigateTo({
       url: '../pickerBirth/pickerBirth',
     })
@@ -41,7 +39,6 @@ Page({
     choseMajor: "一周1~2次";
     choseC: true;
     wx.setStorageSync('tablet', 2)
-    console.log(wx.getStorageSync('tablet'))
     wx.navigateTo({
       url: '../pickerBirth/pickerBirth',
     })
@@ -50,7 +47,6 @@ Page({
     choseMajor: "1周3次以上";
     choseD: true;
     wx.setStorageSync('tablet', 3)
-    console.log(wx.getStorageSync('tablet'))
     wx.navigateTo({
       url: '../pickerBirth/pickerBirth',
     })

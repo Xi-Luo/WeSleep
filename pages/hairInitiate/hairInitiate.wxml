@@ -1,0 +1,31 @@
+<view>
+  <view>
+    <view class="head">
+      请选择一个你的发量形象
+    </view>
+    <image wx:if="{{eyechose+clothchose+hairchose+mouthchose==4}}" src="/images/rightArrow.png" class="finishBtn" bindtap="finishBtn"></image>
+  </view>
+  <view>
+    <view>
+      <image src="/images/bg/bg201.png" class="sameSize"></image>
+      <image src="/images/{{item.type}}/{{item.type}}0{{item.offset}}A.png" class="{{item.type}}" hidden="{{item.imgShow}}" wx:for="{{wardrobe}}" wx:key></image>
+    </view>
+    <view>
+      <scroll-view scroll-x class="bg-green nav text-center">
+        <view wx:for="{{wardrobe}}" wx:key class="cu-item {{index==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="{{index}}">
+          <text class="cuIcon-clothesfill {{item.badge?'text-red':''}}"></text> {{item.name}}
+        </view>
+      </scroll-view>
+      <view wx:for="{{wardrobe}}" wx:key wx:if="{{index==TabCur}}">
+        <view>
+          <view class="grid col-4">
+            <view wx:for="{{item.num}}" wx:key wx:for-item="cell">
+              <image src='/images/{{item.type}}/{{item.type}}0{{index+1}}A.png' class="thudernail" bindtap="bingImgChange" data-cur="{{index+1}}" data-type="{{item.type}}"></image>
+              <view class="cu-tag cuIcon-roundcheck bg-green top-position" hidden="{{item.imgShow}}" wx:if="{{index+1==item.offset}}"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

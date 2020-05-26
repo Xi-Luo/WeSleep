@@ -1,1 +1,62 @@
 @import "../home/home.wxss";
+
+.analysis_item {
+
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+
+}
+.analysis{
+  display: flex;
+  font-size: 17px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+
+.level-A{
+  display: flex;
+  color: #32CD32;
+  font-size: 40px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+.level-B{
+  display: flex;
+  color: #1E90FF;
+  font-size: 40px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+
+.level-C{
+  display: flex;
+  color: #FFD700;
+  font-size: 40px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+
+.level-D{
+  display: flex;
+  color: #FF0000;
+  font-size: 40px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+
+.hairImage{
+  display: flex;
+  justify-content: center;
+  
+}
+.hairImage image{
+  width: 300rpx;
+  height: 300rpx;
+}

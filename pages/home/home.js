@@ -1,9 +1,6 @@
 var imageUtil = require('../../utils/util.js');
 
 //c测试数据
-var greetingChoice = ['早上好', '晚上好', '晚安']
-var myDate = new Date()
-var myHour = myDate.getHours()
 
 var startDot = {
   X: 0,
@@ -19,25 +16,20 @@ var number//定时器ID
 
 Page({
   data: {
+    showTips:false,
+    tips:'',
+    hairUrl:'',
+    eyeUrl:'',
+    clothUrl:'',
+    glassUrl:'',
+    mouthUrl:'',
+    showMorning: false,
+    showEvening: false,
+    showNew: false,
 
     imageUrl: "../img/homeImage.png",
     viewHeigh: "",
     viewWidth: "",
-    greetingView: false,
-    greeting: "",
-    hour: myHour,
-    showMorning: false,
-    showEvening: false,
-    score: 0,
-
-    getUp: '',
-    sleep: '',
-    sleepLevel: '',
-    dayLevel: '',
-    todayDate: '',
-
-
-
 
     ec: {
       onInit: function (canvas, width, height) {
@@ -62,34 +54,100 @@ Page({
   },
 
   onLoad: function (options) {
-     var arr = []
-     wx.setStorageSync('sleepLevel', arr)
-    // var nowTime = new Date()
-    // var timeStamp = Date.parse(nowTime)
-    // console.log(nowTime)
-    // var arr = [111,111,111]
-    // var d = new Date()
-    // arr[3]= d
-    // console.log(d)
-    // wx.setStorageSync('getUpRecord', arr)
-    // var k = wx.getStorageSync('arr')
-    // console.log(k[3])
-    // console.log(wx.getStorageSync('arr'))
-    
-    // console.log('kk',nowTime)
-    // var date = nowTime.getMonth()
-    // var time = nowTime.getHours()
-    // console.log('llllllll',date)
+    wx.setStorageSync('isFirst', 1)
+    var now = new Date()
+    var startDate = wx.getStorageSync('startDate')
+    if(startDate!=''){
+      var d = (now-startDate)/(1000*60*60*24)
+      if(d>=7){this.newReport()}
+      else{
+        if(startDate.getDay()==0&&now.getDay!=startDate.getDay()){this.newReport()}
+        if(d<7&&(imageUtil.formatDate(now)!=imageUtil.formatDate(startDate))&&(now.getDay()<=startDate.getDay())&&(now.getDay()!=0))
+        {this.newReport()}
+      }
+    }
+
     this.setData({
-      greeting: greetingChoice[0],
+      eyeUrl:wx.getStorageSync('eyeUrl'),
+      mouthUrl:wx.getStorageSync('mouthUrl'),
+      clothUrl:wx.getStorageSync('clothUrl'),
+      hairUrl: '/images/malehair/malehair0' + wx.getStorageSync('hairId') + wx.getStorageSync('hairLevel') + '.png',
+      glassUrl:wx.getStorageSync('glassUrl')
     })
+
+  },
+  
+  newReport:function(){
+    var arr
+    var report ={
+      sleepTime:[],
+      getUpTime:[],
+
+      averGetUp:'',
+      averSleep:'',
+      nightScore:'',
+      dayScore:'',
+      startDate:'',
+      endDate:'',
+      sleepDuration:'',
+      level:'',
+
+      advice:-1
+    }
+    report.getUpTime = wx.getStorageSync('getUpTime')
+    report.sleepTime=wx.getStorageSync('sleepTime')
+    report.averGetUp=imageUtil.averageTime(report.getUpTime)
+    report.averSleep=imageUtil.averageTime(report.sleepTime)
+
+    report.startDate = imageUtil.formatDate(wx.getStorageSync('startDate'));
+    var s = new Date(report.sleepTime[report.sleepTime.length-1])
+    var g = new Date(report.getUpTime[report.getUpTime.length-1])
+    if(s-g>0){report.endDate=imageUtil.formatDate(s);}
+    else {report.endDate=imageUtil.formatDate(g);}
+    report.sleepDuration = imageUtil.totoalTime(report.averSleep, report.averGetUp)
+    var temp = wx.getStorageSync('nightScore')
+    var sum =0
+    for(var i=0;i<temp.length;i++){sum = temp[i]+sum;}
+    sum=sum/temp.length;
+    report.nightScore=sum;
+    sum =0;temp=wx.getStorageSync('dayScore')
+    for (var i = 0; i < temp.length; i++) { sum = temp[i] + sum; }
+    sum = sum / temp.length;
+    report.dayScore = sum;
+    var totoalScore = wx.getStorageSync('tablet')+report.nightScore*2+report.dayScore
+    if(report.sleepDuration<5) {totoalScore=totoalScore+3}
+    else if(report.sleepDuration<6){totoalScore=totoalScore+2}
+    else if(report.sleepDuration<7){totoalScore=totoalScore+1}
+    if(totoalScore>=12) {report.level='D';wx.setStorageSync('hairLevel', 'D');report.advice=3}
+    else if (totoalScore >= 8) { report.level = 'C'; wx.setStorageSync('hairLevel', 'C'); report.advice = 2}
+    else if (totoalScore >= 4) { report.level = 'B'; wx.setStorageSync('hairLevel', 'B'); report.advice = 1}
+    else { report.level = 'A'; wx.setStorageSync('hairLevel', 'A'); report.advice = 0}
+    var re = wx.getStorageSync('report')
+    var app = getApp()
+    app.data.reportId = re.length
+    
+    getApp().data.reportId = re.length
+    re[re.length]=report
+    
+    
+    wx.setStorageSync('report', re)
+    
+    var b = []
+    wx.setStorageSync('startDate', '')
+    wx.setStorageSync('dayScore', b)
+    wx.setStorageSync('nightScore', b)
+    wx.setStorageSync('sleepTime', b)
+    wx.setStorageSync('getUpTime', b)
+    this.setData({showNew:true})
   },
 
-  //首页气泡问候
-  onChangeShowState: function () {
-    var that = this;
-    that.setData({
-      greetingView: (!that.data.greetingView),
+
+  gotoReport:function(){
+    this.setData({
+      showNew:false
+    })
+    wx.switchTab({
+      url: '../report/report',
     })
   },
 
@@ -102,133 +160,99 @@ Page({
   },
 
   submitMorning: function () {
-
     var now = new Date()
-    var arr = wx.getStorageSync('getUpRecord')
-    arr[arr.length] = now
-    console.log(arr)
-    wx.setStorageSync('getUpRecord', arr)
-    // wx.setStorageSync(key, data)
-    // if(wx.getStorageSync('reports') =='') {//新用户第一次使用打卡
-    //   wx.setStorageSync('newGetUp', now)
-    // }
-
+    var arr = wx.getStorageSync('getUpTime')
+    var sD = wx.getStorageSync('startDate')
+    if(sD==''){wx.setStorageSync('startDate', now)}
+    arr[arr.length] = imageUtil.formatTime(now) 
+    wx.setStorageSync('getUpTime', arr)
+    var app = getApp()
+    var i = Math.floor(Math.random() * 10)
+    var content = app.data.morningTips[i]
     this.setData({
-      showMorning: true
+      tips:"早上好，"+content,
+      showMorning: true,
+      showTips:true
     })
   },
 
   submitEvening: function () {
     var now = new Date()
-    var arr = wx.getStorageSync('sleepRecord')
-    arr[arr.length] = now
-    console.log(arr)
-    wx.setStorageSync('sleepRecord', arr)
-
-    
-    if (wx.getStorageSync('reports') == '') {//新用户第一次使用打卡
-      wx.setStorageSync('newSleep', now)
-    }
-    
-    
+    var arr = wx.getStorageSync('sleepTime')
+    var sD = wx.getStorageSync('startDate')
+    if (sD == ''){ wx.setStorageSync('startDate', now) }
+    arr[arr.length] = imageUtil.formatTime(now)
+    wx.setStorageSync('sleepTime', arr)
+    var app = getApp()
+    var i = Math.floor(Math.random()*10)
+    var content = app.data.nightTips[i]
     this.setData({
+      tips: "晚安，" + content,
+      showTips:true,
       showEvening: true
     })
   },
 
   sleepWell: function () {
-    var arr = wx.getStorageSync('sleepLevel')
-    arr[arr.length] = 3
-    wx.setStorageSync('sleepLevel', arr)
-
-
-    var that = this;
-    var s = that.data.score + 4;
+    var arr = wx.getStorageSync('nightScore')
+    arr[arr.length] = 0
+    wx.setStorageSync('nightScore', arr)
     this.setData({
-      showMorning: false,
-      score: s,
+      showMorning:false
     })
-    console.log("score:" + that.data.score);
 
   },
 
   sleepSoso: function () {
-    var arr = wx.getStorageSync('sleepLevel')
+    var arr = wx.getStorageSync('nightScore')
     arr[arr.length] = 1.5
-    wx.setStorageSync('sleepLevel', arr)
+    wx.setStorageSync('nightScore', arr)
 
-
-
-    var that = this;
-    var s = that.data.score + 2;
     this.setData({
       showMorning: false,
-      score: s,
     })
-    console.log("score:" + that.data.score);
   },
 
   sleepBad: function () {
-    var arr = wx.getStorageSync('sleepLevel')
-    arr[arr.length] = 0
-    wx.setStorageSync('sleepLevel', arr)
+    var arr = wx.getStorageSync('nightScore')
+    arr[arr.length] = 3
+    wx.setStorageSync('nightScore', arr)
 
-
-    var that = this;
-    var s = that.data.score + 0;
     this.setData({
       showMorning: false,
-      score: s,
     })
-    console.log("score:" + that.data.score)
   },
 
   dayWell: function () {
-    var arr = wx.getStorageSync('dayLevel')
-    arr[arr.length]=3
-    wx.setStorageSync('dayLevel', arr)
+    var arr = wx.getStorageSync('dayScore')
+    arr[arr.length]=0
+    wx.setStorageSync('dayScore', arr)
 
-
-
-    var that = this;
-    var s = that.data.score + 4;
     this.setData({
       showEvening: false,
-      score: s,
     })
-    console.log("score:" + that.data.score);
 
   },
 
   daySoso: function () {
-    var arr = wx.getStorageSync('dayLevel')
+    var arr = wx.getStorageSync('dayScore')
     arr[arr.length] = 1.5
-    wx.setStorageSync('dayLevel', arr)
+    wx.setStorageSync('dayScore', arr)
 
-
-    var that = this;
-    var s = that.data.score + 2;
     this.setData({
       showEvening: false,
-      score: s,
     })
-    console.log("score:" + that.data.score);
 
   },
 
   dayBad: function () {
-    var arr = wx.getStorageSync('dayLevel')
-    arr[arr.length] = 0
-    wx.setStorageSync('dayLevel', arr)
+    var arr = wx.getStorageSync('dayScore')
+    arr[arr.length] = 3
+    wx.setStorageSync('dayScore', arr)
 
-
-    var that = this;
-    var s = that.data.score + 0;
     this.setData({
       showEvening: false,
-      score: s,
     })
-    console.log("score:" + that.data.score)
   },
 
   //手指触摸动作开始，记录起点x坐标
@@ -244,8 +268,6 @@ Page({
   touchMove: function (e) {
     touchDot.X = e.touches[0].pageX;
     touchDot.Y = e.touches[0].pageY;
-
-    console.log("到啦!");
     console.log(startDot.X);
     console.log(touchDot.X);
     console.log(startDot.Y);

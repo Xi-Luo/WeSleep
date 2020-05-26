@@ -1,4 +1,87 @@
 /* pages/account/history/history0.wxss */
+.horizontal{
+  display: flex;
+  flex-direction: row;
+}
+.horizontal_line{
+  margin: 30rpx;
+  height: 2rpx;
+  background-color: #696969;
+}
+.vertical_line{
+  margin: 35rpx 30rpx 0 30rpx;
+  height: 140rpx;
+  width: 4rpx;
+  background-color: #8f8e8e;
+}
+.card-D{
+  background:#ffcec6;
+  margin:30rpx ;
+  border-radius: 30rpx;
+  border: 5rpx solid #ff0000;
+}
+.card-A{
+  background:#cdffc5;
+  margin:30rpx ;
+  border-radius: 30rpx;
+  border: 5rpx solid #32CD32;
+}
+.card-B{
+  background:#c3e1fd;
+  margin:30rpx ;
+  border-radius: 30rpx;
+  border: 5rpx solid #1E90FF;
+}
+.card-C{
+  background:#fff2ac;
+  margin:30rpx ;
+  border-radius: 30rpx;
+  border: 5rpx solid #FF8c00;
+}
+.text-D{
+  margin: 15rpx 0 0 30rpx;
+  font-size: 120rpx;
+   font-weight: 600;
+  color: #ff0000;
+}
+.text-B{
+  margin: 15rpx 0 0 30rpx;
+  font-size: 120rpx;
+  font-weight: 600;
+  color: #1E90FF;
+}
+.text-C{
+  margin: 15rpx 0 0 30rpx;
+  font-size: 120rpx;
+   font-weight: 600;
+  color: #FF8c00;
+}
+.text-A{
+  margin: 15rpx 0 0 30rpx;
+  font-size: 120rpx;
+   font-weight: 600;
+  color: #32CD32;
+}
+.date-D{
+  margin: 110rpx 0 0 30rpx;
+  font: bold;
+  color: #ff0000;
+}
+.date-A{
+  margin: 110rpx 0 0 30rpx;
+  font: bold;
+  color: #32CD32;
+}
+.date-C{
+  margin: 110rpx 0 0 30rpx;
+  font: bold;
+  color: #FF8c00;
+}
+.date-B{
+  margin: 110rpx 0 0 30rpx;
+  font: bold;
+  color: #1E90FF;
+}
 .yellowBg {
   height: 100%;
   background: rgb(248, 219, 100);
@@ -10,4 +93,12 @@
   background: #e9eaec;
   margin: 20rpx;
 
+}
+
+.noRe{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-weight: 600;
+  font-size: 50rpx;
 }

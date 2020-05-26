@@ -19,7 +19,6 @@ Page({
     choseSex: "男";
     choseA: true;
     wx.setStorageSync('gender', '男')
-    console.log(wx.getStorageSync('gender'))
     wx.navigateTo({
       url: '../tablet/tablet',
     })
@@ -29,13 +28,8 @@ Page({
     choseSex: "女";
     choseB: true;
     wx.setStorageSync('gender', '女')
-    console.log(wx.getStorageSync('gender'))
     wx.navigateTo({
       url: '../tablet/tablet',
     })
   },
-
-  
-
-
 });
