@@ -93,6 +93,16 @@ Page({
       })
     }
     temp = wx.getStorageSync('advice')
+    this.setData({
+      startDate: imageUtil.formatDate(reports[rId].startDate),
+      endDate: reports[rId].endDate,
+      wake: reports[rId].averGetUp,
+      asleep: reports[rId].averSleep,
+      time: reports[rId].sleepDuration,
+      level: reports[rId].level,
+      hairUrl: '/images/malehair/malehair0' + wx.getStorageSync('hairId') + reports[rId].level + '.png',
+      advice: temp[reports[rId].advice]
+    })
     if (rId == 0) {
       this.setData({
         showChart: false
@@ -149,28 +159,20 @@ Page({
         xLable: xl,
         chartValue: chartV
       })
+      this.echartsComponnet = this.selectComponent('#mychart');
+      //如果是第一次绘制
+      if (!Chart) {
+        this.init_echart(); //初始化图表
+      } else {
+        this.setOption(Chart); //更新数据
+      }
+
     }
 
     console.log(xl, chartV)
-    this.setData({
-      startDate: imageUtil.formatDate(reports[rId].startDate),
-      endDate: reports[rId].endDate,
-      wake: reports[rId].averGetUp,
-      asleep: reports[rId].averSleep,
-      time: reports[rId].sleepDuration,
-      level: reports[rId].level,
-      hairUrl: '/images/malehair/malehair0' + wx.getStorageSync('hairId') + reports[rId].level + '.png',
-      advice: temp[reports[rId].advice]
-    })
+    
 
-    this.echartsComponnet = this.selectComponent('#mychart');
-    //如果是第一次绘制
-    if (!Chart) {
-      this.init_echart(); //初始化图表
-    } else {
-      this.setOption(Chart); //更新数据
-    }
-
+    
   },
 
 

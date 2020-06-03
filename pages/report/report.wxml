@@ -1,5 +1,5 @@
 <view class="portrait">
-  <image src="/../images/report/portrait.png" class="profile" animation="{{animPlus}}" bindtap="plus"></image>
+  <image src="/images/report/portrait.png" class="profile" animation="{{animPlus}}" bindtap="plus"></image>
 </view>
 <view wx:if="{{rId==-1}}">
 <view class="message_sleep ">\n还没有周报生成哦~</view>

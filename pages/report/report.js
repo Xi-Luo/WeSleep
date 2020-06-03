@@ -46,86 +46,90 @@ Page({
     var rId = getApp().data.reportId
     if(rId==-1){
       this.setData({rId:-1})
-    }
-    var temp =reports[rId].dayScore
-    if(temp<=1){this.setData({dayScore:'充足'})}
-    else if(temp<=2){this.setData({dayScore:'一般'})}
-    else if(temp<=3){this.setData({dayScore:'不足'})}
-    temp = reports[rId].nightScore
-    if (temp <= 1) { this.setData({ nightScore: '好' }) }
-    else if (temp <= 2) { this.setData({ nightScore: '一般' }) }
-    else if (temp <= 3) { this.setData({ nightScore: '差' }) }
-    temp=reports[rId].sleepDuration
-    if(temp>7){this.setData({timeScore:'充足'})}
-    else if(temp>6){this.setData({timeScore:'较充足'})}
-    else if(temp>5){this.setData({timeScore:'不足'})}
-    else {this.setData({timeScore:'十分不足'})}
-    temp=wx.getStorageSync('advice')
-    if(reports.length<2){
-      this.setData({showChart:false})
-    } else{
-      var xl = []; var chartV = []
-      if (reports.length > 7) {
-        var j = reports.length - 7;
-        for (var i = 0; i < 7; i++) {
-          if (i = 6) { xl[i] = '本周' }
-          else { xl[i] = ' ' }
-          if (reports[j].level == 'D') { chartV[i] = 1 }
-          if (reports[j].level == 'C') { chartV[i] = 2 }
-          if (reports[j].level == 'B') { chartV[i] = 3 }
-          if (reports[j].level == 'A') { chartV[i] = 4 }
-          j++;
-        }
+    }else{
+      var temp = reports[rId].dayScore
+      if (temp <= 1) { this.setData({ dayScore: '充足' }) }
+      else if (temp <= 2) { this.setData({ dayScore: '一般' }) }
+      else if (temp <= 3) { this.setData({ dayScore: '不足' }) }
+      temp = reports[rId].nightScore
+      if (temp <= 1) { this.setData({ nightScore: '好' }) }
+      else if (temp <= 2) { this.setData({ nightScore: '一般' }) }
+      else if (temp <= 3) { this.setData({ nightScore: '差' }) }
+      temp = reports[rId].sleepDuration
+      if (temp > 7) { this.setData({ timeScore: '充足' }) }
+      else if (temp > 6) { this.setData({ timeScore: '较充足' }) }
+      else if (temp > 5) { this.setData({ timeScore: '不足' }) }
+      else { this.setData({ timeScore: '十分不足' }) }
+      temp = wx.getStorageSync('advice')
+      if (reports.length < 2) {
+        this.setData({ showChart: false })
       } else {
-        for (var i = 0; i < reports.length; i++) {
-          console.log('ininininin', i, reports[i].level)
-          if (i == reports.length - 1) { xl[i] = '本周' }
-          else { xl[i] = i+1 }
-          console.log('afterelse',i)
-          if (reports[i].level == 'D') { chartV[i] = 1 }
-          if (reports[i].level == 'C') { chartV[i] = 2 }
-          if (reports[i].level == 'B') { chartV[i] = 3 }
-          if (reports[i].level == 'A') { chartV[i] = 4 }
+        var xl = []; var chartV = []
+        if (reports.length > 7) {
+          var j = reports.length - 7;
+          for (var i = 0; i < 7; i++) {
+            if (i = 6) { xl[i] = '本周' }
+            else { xl[i] = ' ' }
+            if (reports[j].level == 'D') { chartV[i] = 1 }
+            if (reports[j].level == 'C') { chartV[i] = 2 }
+            if (reports[j].level == 'B') { chartV[i] = 3 }
+            if (reports[j].level == 'A') { chartV[i] = 4 }
+            j++;
+          }
+        } else {
+          for (var i = 0; i < reports.length; i++) {
+            console.log('ininininin', i, reports[i].level)
+            if (i == reports.length - 1) { xl[i] = '本周' }
+            else { xl[i] = i + 1 }
+            console.log('afterelse', i)
+            if (reports[i].level == 'D') { chartV[i] = 1 }
+            if (reports[i].level == 'C') { chartV[i] = 2 }
+            if (reports[i].level == 'B') { chartV[i] = 3 }
+            if (reports[i].level == 'A') { chartV[i] = 4 }
+          }
         }
+        this.setData({
+          xLable: xl,
+          chartValue: chartV
+        })
       }
+
       this.setData({
-        xLable: xl,
-        chartValue: chartV
+        startDate: imageUtil.formatDate(reports[rId].startDate),
+        endDate: reports[rId].endDate,
+        wake: reports[rId].averGetUp,
+        asleep: reports[rId].averSleep,
+        time: reports[rId].sleepDuration,
+        level: reports[rId].level,
+        hairUrl: '/images/malehair/malehair0' + wx.getStorageSync('hairId') + wx.getStorageSync('hairLevel') + '.png',
+        advice: temp[reports[rId].advice]
       })
+
+      this.echartsComponnet = this.selectComponent('#mychart');
+      //如果是第一次绘制
+      if (!Chart) {
+        this.init_echart(); //初始化图表
+      } else {
+        this.setOption(Chart); //更新数据
+      }
     }
     
-    this.setData({
-      startDate:imageUtil.formatDate(reports[rId].startDate),
-      endDate:reports[rId].endDate,
-      wake: reports[rId].averGetUp,
-      asleep: reports[rId].averSleep,
-      time: reports[rId].sleepDuration,
-      level: reports[rId].level,
-      hairUrl:'/images/malehair/malehair0'+wx.getStorageSync('hairId')+wx.getStorageSync('hairLevel')+'.png',
-      advice:temp[reports[rId].advice]
-    })
-
-    this.echartsComponnet = this.selectComponent('#mychart');
-    //如果是第一次绘制
-    if (!Chart) {
-      this.init_echart(); //初始化图表
-    } else {
-      this.setOption(Chart); //更新数据
-    }
   },
 
   init_echart: function () {
-    this.echartsComponnet.init((canvas, width, height) => {
-      //初始化图表
-      const Chart = echarts.init(canvas, null, {
-        width: width,
-        height: height
+    var rId = getApp().data.reportId
+    if(rId>0){
+      this.echartsComponnet.init((canvas, width, height) => {
+        //初始化图表
+        const Chart = echarts.init(canvas, null, {
+          width: width,
+          height: height
+        });
+        this.setOption(Chart)
+        //要返回chart实例，否则会影响事件处理等
+        return Chart;
       });
-      this.setOption(Chart)
-      //要返回chart实例，否则会影响事件处理等
-      return Chart;
-    });
-
+    }
   },
   setOption: function (Chart) {
     Chart.clear(); //清除
