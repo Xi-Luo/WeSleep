@@ -13,6 +13,7 @@ var touchDot = {
 }
 var time = 0//触屏时间
 var number//定时器ID
+var app = getApp();
 
 Page({
   data: {
@@ -26,6 +27,10 @@ Page({
     showMorning: false,
     showEvening: false,
     showNew: false,
+
+    showGuideOne:true,//是否显示第一个使用引导的标志
+    showGuideTwo: false,//是否显示第二个使用引导的标志
+    showGuideThree: false,//是否显示第三个使用引导的标志
 
     imageUrl: "../img/homeImage.png",
     viewHeigh: "",
@@ -45,6 +50,29 @@ Page({
 
   },
 
+  //隐藏引导页
+  hideOne: function () {
+    this.setData({
+      showGuideOne: false,
+      showGuideTwo: true,
+      showGuideThree: false,
+    })
+  },
+  hideTwo: function () {
+    this.setData({
+      showGuideOne: false,
+      showGuideTwo: false,
+      showGuideThree: true,
+    })
+  },
+  hideThree: function () {
+    this.setData({
+      showGuideOne: false,
+      showGuideTwo: false,
+      showGuideThree: false,
+    })
+  },
+
   input: function () {
     console.log("input")
   },
@@ -54,6 +82,23 @@ Page({
   },
 
   onLoad: function (options) {
+    //生命周期函数中判断是否第一次使用小程序，以此决定显示使用引导
+    var isFir = wx.getStorageSync('isFirst');
+    if(isFir==0){
+      this.setData({
+        showGuideOne: true,
+        showGuideTwo: false,
+        showGuideThree: false,
+      })
+    }else{
+      this.setData({
+        showGuideOne: false,
+        showGuideTwo: false,
+        showGuideThree: false,
+      })
+    }
+
+
     wx.setStorageSync('isFirst', 1)
     var now = new Date()
     var startDate = wx.getStorageSync('startDate')
@@ -290,5 +335,4 @@ Page({
     clearInterval(number);
     time = 0;
   },
-
 })

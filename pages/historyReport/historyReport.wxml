@@ -1,5 +1,5 @@
 <view class="portrait">
-  <image src="/../img/portrait.png" class="profile" animation="{{animPlus}}" bindtap="plus"></image>
+  <image src="/images/report/portrait.png" class="profile" animation="{{animPlus}}" bindtap="plus"></image>
 </view>
 <view class="page-head-line"></view>
 <view class="message">

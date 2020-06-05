@@ -1,3 +1,45 @@
+<view class='guide' wx:if="{{showGuideOne}}" bindtap='hideOne'>
+  <view class='cont'>
+    <view class='cont-p'>
+      <view class='text'><text>1</text></view><view>点击早安晚安按钮打卡</view>
+      <image src='/images/guide/morning_btn.png'></image>
+      <image src='/images/guide/evening_btn.png'></image>
+    </view>
+    <view class='cont-p'>
+      <view class='text'><text>2</text></view><view>打卡后将有健康提示出现</view>
+    </view>
+    <view class='tip1_arrow'>
+      <image src='/images/guide/right_arrow.png'></image>
+    </view>
+    <view class="tip1">
+      <view class="tipsContent">早上好，有健康的生活习惯，才有更乌黑浓密的秀发</view>
+    </view>
+  </view>
+</view>
+
+<view class='guide' wx:if="{{showGuideTwo}}" bindtap='hideTwo'>
+  <view class='cont'>
+    <view class="tip2">
+      <view class="tipsContent">本周睡眠质量分析在周报中查询</view>
+    </view>
+    <view class='tip2_arrow'>
+      <image src='/images/guide/left_arrow.png'></image>
+    </view>
+  </view>
+</view>
+
+<view class='guide' wx:if="{{showGuideThree}}" bindtap='hideThree'>
+  <view class='cont'>
+    <view class="tip3">
+      <view class="tipsContent">历史睡眠质量记录可在"我的"->"历史周报"中查询</view>
+    </view>
+    <view class='tip3_arrow'>
+      <image src='/images/guide/right_arrow.png'></image>
+    </view>
+  </view>
+</view>
+
+
 <view class='allLayout' bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
   <view class="Dialog" wx:if="{{showMorning}}">
     <view class='question'>昨晚睡得怎么样？</view>
@@ -26,11 +68,13 @@
   </view>
   <view class="home">
     <image src="/images/home/background.png" class="home_image img-down"></image>
-    <image src="{{hairUrl}}" class="malehair"></image>
-    <image src="{{glassUrl}}" class="glass"></image>
-    <image src="{{eyeUrl}}" class="eye"></image>
-    <image src="{{clothUrl}}" class="cloth"></image>
-    <image src="{{mouthUrl}}" class="mouth"></image>
+    <view class="all">
+    <image src="{{glassUrl}}" class="glassd"></image>
+    <image src="{{hairUrl}}" class="malehaird"></image>
+    <image src="{{eyeUrl}}" class="eyed"></image>
+    <image src="{{clothUrl}}" class="clothd"></image>
+    <image src="{{mouthUrl}}" class="mouthd"></image>
+    </view>
     <button class='morning-btn' bindtap='submitMorning'>早安</button>
     <button class='evening-btn' bindtap='submitEvening'>晚安</button>
   </view>

@@ -21,8 +21,8 @@ Page({
     choseMajor: "无";
     choseA: true;
     wx.setStorageSync('tablet', 0)
-    wx.navigateTo({
-      url: '../pickerBirth/pickerBirth',
+    wx.switchTab({
+      url: '../../home/home',
     })
   },
 
@@ -30,8 +30,8 @@ Page({
     choseMajor: "不超过一周1次";
     choseB: true;
     wx.setStorageSync('tablet', 1)
-    wx.navigateTo({
-      url: '../pickerBirth/pickerBirth',
+    wx.switchTab({
+      url: '../../home/home',
     })
   },
 
@@ -39,16 +39,16 @@ Page({
     choseMajor: "一周1~2次";
     choseC: true;
     wx.setStorageSync('tablet', 2)
-    wx.navigateTo({
-      url: '../pickerBirth/pickerBirth',
+    wx.switchTab({
+      url: '../../home/home',
     })
   },
   choseD: function (e) {
     choseMajor: "1周3次以上";
     choseD: true;
     wx.setStorageSync('tablet', 3)
-    wx.navigateTo({
-      url: '../pickerBirth/pickerBirth',
+    wx.switchTab({
+      url: '../../home/home',
     })
   },
   

@@ -1,6 +1,8 @@
 const app = getApp()
 Page({
   data: {
+    tablets: ["无", "不超过1周1次", "1周1~2次", "1周3次以上"],
+    tabletIndex: '',
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -12,6 +14,9 @@ Page({
     })
   },
   onLoad: function () {
+    this.setData({
+      tabletIndex: wx.getStorageSync('tablet')
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -35,6 +40,14 @@ Page({
         }
       })
     }
+  },
+  bindTabletChange: function (e) {
+    console.log('picker tablet 发生选择改变，携带值为', e.detail.value);
+    wx.setStorageSync('tablet', e.detail.value)
+    this.setData({
+      tabletIndex: wx.getStorageSync('tablet')
+    })
+    console.log('tablet', this.data.tabletIndex)
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo

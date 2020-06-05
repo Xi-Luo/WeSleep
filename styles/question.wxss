@@ -10,7 +10,7 @@ page {
                  'Droid Sans Fallback',
                  'Microsoft Yahei',
                  sans-serif;
-  height: 1000rpx;
+  height: 85%;
   background: #fff;
   margin: 70rpx 15rpx 70rpx 15rpx;
   position: relative;
@@ -51,14 +51,12 @@ page {
 }
 
 .welcome{
-
   color: #595757;
   margin: 100rpx 20rpx 0rpx 20rpx;
   font-size: 40rpx;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .correctCharacter {

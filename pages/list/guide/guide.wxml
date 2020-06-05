@@ -1,0 +1,38 @@
+<view class="page" bindtap="click">
+  <view>
+    <view class='topdd'>初次见面的朋友</view>
+    <view class='topd'>你好~</view>
+  </view>
+  <view class='welcomed welcome1'>
+    <text>还在为自己的睡眠而烦恼吗？</text>
+  </view>
+  <view class='welcomed welcome1'>
+    <text>还在为熬夜脱发而烦恼吗？</text>
+  </view>
+  <view class='welcomed welcome2'>
+    <text>别担心(•̀ᴗ•́)و ̑̑</text>
+  </view>
+  <view class='welcomed welcome2'>
+    <text>你的睡眠管家来了</text>
+  </view>
+  <view class='welcomed welcome1'>
+    你可以在这里
+  </view>
+  <view class='welcomed welcome3'>
+    合成自己的专属发量形象
+  </view>
+  <view class='welcomed welcome3'>
+    记录自己的睡眠
+  </view>
+  <view class='welcomed welcome4'>
+    小管家会每周生成你的睡眠周报
+  </view>
+  <view class='welcomed welcome4'>
+    睡得不好，发量形象会越来越差哦！
+  </view>
+  <view class='welcomed welcome5'>
+  <view><text>点击任意位置合成专属发量形象\n</text></view>
+  </view>
+  <view class="welcomed">
+  <image src="/images/malehair/malehair01A.png" style="height:90rpx;width:90rpx;"></image></view>
+</view>

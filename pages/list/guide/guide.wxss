@@ -1,0 +1,51 @@
+/* pages/list/guide/guide.wxss */
+@import '../../../styles/question.wxss';
+.topd {
+  height: 100rpx;
+  width: 100%;
+  border-bottom: 1px solid rgb(248, 219, 100);
+  font-size: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.topdd {
+  margin-top: 50rpx;
+  height: 100rpx;
+  width: 100%;
+  font-size: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.welcomed{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.welcome1{
+  color: #595757;
+  margin-top: 10rpx;
+  font-size: 30rpx;
+}
+.welcome2{
+  color: #008bfd;
+  margin-top: 15rpx;
+  font-size: 39rpx;
+  font: bold;
+}
+.welcome3{
+  color: #008bfd;
+  font:bold;
+  margin-top: 15rpx;
+  font-size: 41rpx;
+}
+.welcome4{
+  color: #008bfd;
+  margin-top: 15rpx;
+  font-size: 35rpx;
+}
+.welcome5{
+  margin-top: 40rpx;
+  font-size: 45rpx;
+}

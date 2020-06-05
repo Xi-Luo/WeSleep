@@ -101,13 +101,13 @@ Page({
       var xl = [];
       var chartV = [];
 
-      if (reports.length > 7) {
-        var j = reports.length - 7;
+      if (rId > 6) {
+        var j = rId - 6;
         for (var i = 0; i < 7; i++) {
           if (i = 6) {
             xl[i] = '本周'
           } else {
-            xl[i] = ' '
+            xl[i] = i+1
           }
           if (reports[j].level == 'D') {
             chartV[i] = 1
@@ -125,8 +125,8 @@ Page({
         }
       } else {
 
-        for (var i = 0; i < reports.length; i++) {
-          if (i == reports.length - 1) {
+        for (var i = 0; i <= rId; i++) {
+          if (i == rId) {
             xl[i] = '本周'
           } else {
             xl[i] = i + 1

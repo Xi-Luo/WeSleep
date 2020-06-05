@@ -113,8 +113,8 @@ Page({
     })
   },
   finishBtn() {
-    wx.switchTab({
-      url: '../home/home',
+    wx.navigateTo({
+      url: '../list/tablet/tablet',
     })
   }
 })
